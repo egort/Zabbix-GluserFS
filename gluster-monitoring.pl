@@ -7,6 +7,8 @@ use Switch;
 #$ENV{'HEKETI_CLI_SERVER'} = 'http://10.2.0.73:8081';
 # ----------------------------------
 
+my $remote = "--remote-host=gl1";
+
 switch ($ARGV[0])
 {
 case "discovery" {
@@ -15,8 +17,7 @@ my $first = 1;
 print "{\n";
 print "\t\"data\":[\n\n";
 
-
-my $result = `gluster volume list`;
+my $result = `gluster volume list $remote`;
 
 my @lines = split /\n/, $result;
 foreach my $l (@lines) {
@@ -41,7 +42,7 @@ print "{\n";
 print "\t\"data\":[\n\n";
 
 
-my $result = `gluster pool list | tail -n +2`;
+my $result = `gluster pool list $remote | tail -n +2`;
 
 my @lines = split /\n/, $result;
 foreach my $l (@lines) {
@@ -62,22 +63,22 @@ print "}\n";
 }
 
 case "status" {
-my $result = `gluster volume status $ARGV[1] detail --xml`;
-        
+my $result = `gluster volume status $ARGV[1] detail $remote --xml`;
+
     print $result;
 
 }
 
 case "info" {
-my $result = `gluster volume info $ARGV[1] --xml`;
-        
+my $result = `gluster volume info $ARGV[1] $remote --xml`;
+
     print $result;
 
 }
 
 case "peers-status" {
-my $result = `gluster peer status --xml`;
-        
+my $result = `gluster peer status $remote --xml`;
+
     print $result;
 
 }
