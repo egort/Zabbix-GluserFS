@@ -10,7 +10,7 @@ Monitor peers status; volumes size, inodes, status, bricks count.
 # Dependencies
 perl, sudo, zabbix-agent, gluster.
 
-libswitch-perl library.
+libswitch-perl library (``yum install perl-Switch``).
 
 Installation
 ============
